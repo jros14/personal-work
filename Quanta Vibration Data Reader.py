@@ -19,14 +19,14 @@ print(str(type(quanta_data_list[0])))"""
 print("Start *******************************")
 index = quanta_df.index
 column = quanta_df.columns.values
-"""for column_text in quanta_data_list:
+for column_text in quanta_data_list:
     number_to_check = column_text[2:5]
     if(number_to_check[2] == ')'):
         number_to_check[2] = ' '
 #    print(column_text[2:5])
     if number_to_check.strip() == str(minute):
         print("It's minute " + str(minute) + "!!")
-        break  """
+        break
 x_axis = index
 y_column = "Z=" + minute + " (EWaterfall_control(f))"
 print(y_column)
