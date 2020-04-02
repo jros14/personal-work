@@ -7,30 +7,29 @@ import time
 import pandas as pd
 import os
 import datetime
+import tkinter as tk
+from tkinter import filedialog
+
+root = tk.Tk()
+root.withdraw()
+
+quanta_data_path = filedialog.askopenfilename()
+#quanta_data_path = r"C:\Users\jrosenburg\Desktop\Mom's Spaghetti\Learning\Python Studying\Sample Quanta Data\Durability Runs 5-8\06 Dura 15  30min.xlsx"
 
 
-def plot_data(quanta_df, column_name):
-    y_values = quanta_df.loc[column_name]
-    print("plotting....")
-    plt.plot(y_values)
-    plt.xlabel('Frequency')
-    plt.ylabel('G^2/Hz')
-    plt.title("PSD")
-    plt.xscale("log")
-    plt.show()
+which_input = input('Which input would you like to view? Type a number or "control"')
+which_input = which_input.lower().strip()
+minute = input('What minute would you like to view the data from?')
+if which_input == "control":
+    input_and_minute = minute + which_input
+else:
+    input_and_minute = minute + "input" + which_input
 
-
-# def find_column():
-
-
-#input1 = input('Which input would you like to view? Type a number or "control"')
-#input1 = input1.lower()
-#minute = int(input('What minute would you like to view the data from?'))
-quanta_data_path = r"C:\Users\jrosenburg\Desktop\Mom's Spaghetti\Learning\Python Studying\Sample Quanta Data\Durability Runs 5-8\06 Dura 15  30min.xlsx"
 df = pd.read_excel(quanta_data_path, sheet_name=0, header=0, index_col=0)
 df = df.drop(df.index[[0, 1]])
 df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_').str.replace('(', '').str.replace(')', '').str.replace('_ewaterfall_','').str.replace('z=','').str.replace('f','')
-column_to_plot = df['2control']
+
+column_to_plot = df[input_and_minute]
 y_scale_max = column_to_plot.max() + 1
 peak_resonance_frequency = pd.to_numeric(column_to_plot).idxmax()
 
