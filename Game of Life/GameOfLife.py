@@ -40,3 +40,8 @@ class Grid:
 
         return num_o_neighbors, num_blank_neighbors
 
+    def get_cell_value(self, cell_location):
+        if self.grid[cell_location[0]][cell_location[1]] == "o":
+            return True
+        else:
+            return False
