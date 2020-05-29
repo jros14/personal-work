@@ -42,7 +42,7 @@ class TestGameOfLife(unittest.TestCase):
     def test_build_new_grid(self):
         grid_object, grid = setup_grid()
         grid_object.build_next_grid()
-        self.assertEqual("o", grid_object.next_grid[1][7])
+        self.assertEqual("o", grid_object.next_grid[1][3])
 
 if __name__ == '__main__':
     unittest.main()
