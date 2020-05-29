@@ -58,6 +58,7 @@ class Grid:
         for row in self.grid:
             self.next_grid.append(row)
 
+        #TODO: make sure these rules are filled out correctly now that it's gathering the surrounding cells correctly
         for row in range(len(self.grid)):
             for column in range(len(self.grid)):
                 num_o_neighbors, num_blank_neighbors = self.neighboring_cells([row, column])
