@@ -8,7 +8,12 @@ def setup_grid():
             ["o", "_", "_", "o"],
             ["o", "o", "_", "o"],
             ["o", "o", "_", "o"]]
+    next_grid = [["_", "_", "o", "_"],
+                ["o", "_", "_", "o"],
+                ["o", "o", "_", "o"],
+                ["o", "o", "_", "o"]]
     grid_object.grid = grid
+    grid_object.next_grid = next_grid
     return grid_object, grid
 
 
@@ -32,17 +37,17 @@ class TestGameOfLife(unittest.TestCase):
         self.assertEqual(5, num_o, "not gathering neighboring cells correctly")
         self.assertEqual(3, num_blank, "not gathering neighboring cells correctly")
 
-    def test_change_cell_value(self):
-        grid_object, grid = setup_grid()
-        cell = [1, 1]
-
-        grid_object.change_cell_value(cell)
-        self.assertEqual("o", grid[1][1], "cells not switching value")
-
     def test_build_new_grid(self):
         grid_object, grid = setup_grid()
         grid_object.build_next_grid()
         self.assertEqual("o", grid_object.next_grid[1][3])
+
+    def test_grid_carries_over_to_next_grid(self):
+        pass
+
+    def test_next_grid_saves_to_grid(self):
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()
