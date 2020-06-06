@@ -2,22 +2,14 @@ import numpy
 import random
 import pygame
 
-pygame.init()
-screen = pygame.display.set_mode([400, 400])
-pygame.display.set_caption("Julian's Game of Life")
-done = False
-clock = pygame.time.Clock()
-
-white = (255, 255, 255)
-black = (0, 0, 0)
-screen.fill(black)
-
 
 class Grid:
     def __init__(self):
         self.grid = []
         self.next_grid = []
-        pygame.init()
+        self.display = Display()
+        self.create_random_grid()
+        self.display.main_display_loop(self)
 
     def create_random_grid(self, grid_dimension=None):
         if grid_dimension is None:
@@ -33,9 +25,9 @@ class Grid:
         for row_index in range(len(self.grid)):
             for cell_index in range(len(self.grid[row_index])):
                 if self.grid[row_index][cell_index] == "o":
-                    pygame.draw.rect(screen, white, [row_index*10, cell_index*10, 10, 10])
+                    self.display.draw_white_rectangle([row_index * 10, cell_index * 10, 10, 10])
                 if self.grid[row_index][cell_index] == "_":
-                    pygame.draw.rect(screen, black, [row_index*10, cell_index*10, 10, 10])
+                    self.display.draw_black_rectangle([row_index * 10, cell_index * 10, 10, 10])
 
     def neighboring_cells(self, cell_location):
         # returns the number of o's and _'s surrounding cell_location
@@ -94,17 +86,37 @@ class Grid:
         self.display_grid()
 
 
-grid = Grid()
-grid.create_random_grid()
-while not done:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            done = True
+class Display:
+    def __init__(self):
+        pygame.init()
+        self.screen = pygame.display.set_mode([400, 400])
+        pygame.display.set_caption("Julian's Game of Life")
+        self.done = False
+        self.clock = pygame.time.Clock()
+        self.white = (255, 255, 255)
+        self.black = (0, 0, 0)
+        self.screen.fill(self.black)
+        # self.main_display_loop()
 
-    grid.build_next_grid()
-    # pygame.draw.rect(screen, green, [300, 200, 20, 20])
-    pygame.display.update()
+    def main_display_loop(self, grid):
+        while not self.done:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.done = True
 
-    # 20 frames per second:
-    clock.tick(20)
-pygame.quit()
+            grid.build_next_grid()
+            # pygame.draw.rect(screen, green, [300, 200, 20, 20])
+            pygame.display.update()
+
+            # 20 frames per second:
+            self.clock.tick(20)
+        pygame.quit()
+
+    def draw_white_rectangle(self, location_size):
+        pygame.draw.rect(self.screen, self.white, location_size)
+
+    def draw_black_rectangle(self, location_size):
+        pygame.draw.rect(self.screen, self.black, location_size)
+
+
+g = Grid()
