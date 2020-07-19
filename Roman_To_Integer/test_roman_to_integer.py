@@ -16,7 +16,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(20, value)
 
     def test_subtract_all_values_subtracts_values(self):
-        value = self.solution.subtract_values("XXIV")
+        value = self.solution.subtract_values("XXIV", self.solution.add_all_characters("XXIV"))
         self.assertEqual(24, value)
 
 if __name__ == '__main__':
